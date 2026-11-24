@@ -4955,3 +4955,70 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* ----- 마이페이지의 기업 담당자 진입점 ----- */
+
+.mypage-corporate {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--olive-tint);
+}
+
+.mypage-corporate-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1.5px solid var(--olive-tint);
+  border-radius: var(--r-card);
+  background: var(--cream-raised);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mypage-corporate-card:hover {
+  background: var(--olive-soft);
+}
+
+.mypage-corporate-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--olive-soft);
+  color: var(--olive-deep);
+}
+
+.mypage-corporate-card:hover .mypage-corporate-icon {
+  background: var(--cream-raised);
+}
+
+.mypage-corporate-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mypage-corporate-text strong {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.mypage-corporate-text small {
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.mypage-corporate-card > svg {
+  flex: 0 0 auto;
+  color: var(--ink-faint);
+}

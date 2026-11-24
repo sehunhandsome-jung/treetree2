@@ -199,7 +199,11 @@ function Login() {
           <button
             type="button"
             className="login-corporate-link"
-            onClick={() => navigate("/corporate")}
+            onClick={() =>
+              navigate("/corporate", {
+                state: { from: "/" },
+              })
+            }
           >
             기업 담당자로 로그인
           </button>

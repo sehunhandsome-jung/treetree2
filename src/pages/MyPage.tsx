@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  Building2,
+  ChevronRight,
   Coins,
   Gift,
   History,
@@ -65,6 +68,7 @@ function summarizeExchangedProducts(
 }
 
 function MyPage() {
+  const navigate = useNavigate();
   const { harvestCount, points } = useGarden();
   const [activeTab, setActiveTab] =
     useState<MyPageTab>("activities");
@@ -400,6 +404,45 @@ function MyPage() {
             )}
           </section>
         )}
+        {/*
+          임직원 화면이지만 기업 담당자도 같은 앱으로 들어온다.
+          계정 구분이 없어 메뉴를 나눌 수 없으므로, 맨 아래에
+          따로 두고 기업 코드가 필요하다는 점을 미리 알린다.
+        */}
+        <section
+          className="mypage-corporate"
+          aria-label="기업 담당자용 기능"
+        >
+          <button
+            type="button"
+            className="mypage-corporate-card"
+            onClick={() =>
+              navigate("/corporate", {
+                state: { from: "/mypage" },
+              })
+            }
+          >
+            <span
+              className="mypage-corporate-icon"
+              aria-hidden="true"
+            >
+              <Building2 size={20} />
+            </span>
+
+            <span className="mypage-corporate-text">
+              <strong>기업용 ESG 리포트</strong>
+              <small>
+                임직원 활동 데이터를 보고서용으로 정리해요.
+                기업 코드가 필요해요.
+              </small>
+            </span>
+
+            <ChevronRight
+              size={18}
+              aria-hidden="true"
+            />
+          </button>
+        </section>
       </main>
 
       <BottomNav />

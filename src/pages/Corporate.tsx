@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -59,6 +62,21 @@ function formatDateTime(iso: string) {
     .replace(/\.\s?$/, "");
 }
 
+/*
+  로그인 화면과 마이페이지 양쪽에서 들어올 수 있다.
+  어디서 왔는지 모르면 뒤로가기가 엉뚱한 곳으로 가므로
+  보낸 쪽이 state.from에 출발지를 실어 준다.
+*/
+function useExitTarget() {
+  const location = useLocation();
+  const from = (location.state as { from?: string } | null)
+    ?.from;
+
+  return from === "/mypage"
+    ? { path: "/mypage", label: "마이페이지로" }
+    : { path: "/", label: "로그인으로" };
+}
+
 function CodeGate({
   onSubmit,
   isLoading,
@@ -69,6 +87,7 @@ function CodeGate({
   errorMessage: string | null;
 }) {
   const navigate = useNavigate();
+  const exit = useExitTarget();
   const [code, setCode] = useState("");
 
   return (
@@ -76,10 +95,10 @@ function CodeGate({
       <button
         type="button"
         className="corp-back"
-        onClick={() => navigate("/")}
+        onClick={() => navigate(exit.path)}
       >
         <ArrowLeft size={16} />
-        <span>로그인으로</span>
+        <span>{exit.label}</span>
       </button>
 
       <div className="corp-gate-badge">
@@ -198,6 +217,7 @@ function BreakdownRow({
 
 function Corporate() {
   const navigate = useNavigate();
+  const exit = useExitTarget();
   const {
     report,
     isLoading,
@@ -240,10 +260,10 @@ function Corporate() {
           <button
             type="button"
             className="corp-back"
-            onClick={() => navigate("/")}
+            onClick={() => navigate(exit.path)}
           >
             <ArrowLeft size={16} />
-            <span>나가기</span>
+            <span>{exit.label}</span>
           </button>
 
           <p className="corp-report-kicker">
